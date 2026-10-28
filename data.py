@@ -1,4 +1,3 @@
-
 LOCATIONS = [
  {"id":"L1","name":"Control Centre","type":"Command","people":"—","icon":"⌘"},
  {"id":"L2","name":"North Shelter","type":"Shelter","people":"420 capacity","icon":"⌂"},
