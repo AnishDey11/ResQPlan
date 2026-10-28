@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ResQPlan — Emergency Response Planner</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">✚</div><div><strong>ResQPlan</strong><small>DISASTER RESPONSE PLANNER</small></div></div>
+  <div class="live"><span class="pulse"></span> FLOOD RESPONSE SIMULATION <span class="tag">DEMO DATA</span></div>
+</header>
+<main>
+  <section class="hero">
+    <div><p class="eyebrow">EMERGENCY CONTROL CENTRE / FLOOD SCENARIO</p><h1>Plan the response.<br><em>Save more lives.</em></h1>
+    <p class="intro">Build a feasible, cost-aware rescue plan using an AND/OR graph. AND branches represent tasks that must all happen; OR branches represent alternatives.</p></div>
+    <div class="hero-stat"><span class="stat-icon">⌁</span><div><strong id="heroLocations">10</strong><small>LOCATIONS IN NETWORK</small></div><div class="stat-divider"></div><div><strong id="heroTasks">7</strong><small>EMERGENCY TASKS</small></div></div>
+  </section>
+  <section class="toolbar">
+    <div><span class="section-kicker">01 / SCENARIO</span><h2>Response configuration</h2></div>
+    <div class="controls">
+      <label>Budget ceiling <div class="budget-input"><span>₹</span><input id="budget" type="number" min="1000" step="500" value="18000"></div></label>
+      <label>Optimization objective<select id="priority"><option value="cost">Lowest-cost complete response</option></select></label>
+      <button class="primary" id="planBtn">⟶ Generate plan</button>
+      <button class="secondary" id="resetBtn">Reset</button>
+    </div>
+  </section>
+  <section class="summary-grid" id="summary">
+    <article class="metric"><span class="metric-label">ESTIMATED COST</span><strong id="costMetric">—</strong><small id="budgetMetric">Set budget and generate plan</small></article>
+    <article class="metric"><span class="metric-label">PEOPLE REACHED</span><strong id="peopleMetric">—</strong><small>Estimated beneficiaries across selected tasks</small></article>
+    <article class="metric"><span class="metric-label">TASKS COVERED</span><strong id="tasksMetric">—</strong><small>Required task groups satisfied</small></article>
+    <article class="metric"><span class="metric-label">PLAN STATUS</span><strong id="statusMetric" class="status-text">NOT RUN</strong><small id="statusDetail">Generate a plan to evaluate feasibility</small></article>
+  </section>
+  <section class="work-grid">
+    <article class="panel graph-panel">
+      <div class="panel-head"><div><span class="section-kicker">02 / REASONING MODEL</span><h2>AND/OR response graph</h2><p>Choose a task node to inspect its alternatives and prerequisites.</p></div><div class="legend"><span><i class="and-dot"></i> AND</span><span><i class="or-dot"></i> OR</span><span><i class="facility-dot"></i> Facility</span></div></div>
+      <div class="graph-wrap"><svg id="graph" viewBox="0 0 900 510" role="img" aria-label="Interactive AND OR emergency response graph"></svg></div>
+      <div class="graph-foot"><span><b>How to read:</b> AND = all child tasks required · OR = choose one feasible alternative.</span><button class="text-button" id="showAllBtn">Show full graph ↗</button></div>
+    </article>
+    <aside class="panel detail-panel">
+      <div class="panel-head"><div><span class="section-kicker">03 / NODE INSPECTOR</span><h2 id="detailTitle">Flood response</h2></div><span id="nodeType" class="node-chip">ROOT</span></div>
+      <p id="detailDescription" class="detail-description">Select a node in the graph to inspect its requirements.</p>
+      <div id="detailBody" class="detail-body"></div>
+      <div class="inspector-note"><span>ⓘ</span><span>This is a planning aid using illustrative data, not a live dispatch or official emergency system.</span></div>
+    </aside>
+  </section>
+  <section class="panel plan-panel">
+    <div class="panel-head"><div><span class="section-kicker">04 / RECOMMENDED ACTIONS</span><h2>Generated response plan</h2><p id="planSubtitle">Generate a plan to see the selected operations and their costs.</p></div><button class="secondary" id="exportBtn">↓ Export plan CSV</button></div>
+    <div id="planContent" class="empty-state"><div class="empty-icon">⌁</div><strong>No plan generated yet</strong><p>Choose a budget and select <b>Generate plan</b> to calculate a feasible response.</p></div>
+  </section>
+  <section class="lower-grid">
+    <article class="panel"><div class="panel-head"><div><span class="section-kicker">05 / LOCATIONS</span><h2>Rescue network</h2></div><span class="subtle">10 locations</span></div><div id="locationsList" class="locations-list"></div></article>
+    <article class="panel"><div class="panel-head"><div><span class="section-kicker">06 / TASK CATALOG</span><h2>Emergency tasks</h2></div><span class="subtle">7 task groups</span></div><div id="taskCatalog" class="task-catalog"></div></article>
+  </section>
+  <footer>ResQPlan · Academic project prototype · Demo values only · Verify all routes, capacity and costs with local emergency authorities.</footer>
+</main>
+<script src="{{ url_for('static', path='app.js') }}"></script>
+</body></html>
